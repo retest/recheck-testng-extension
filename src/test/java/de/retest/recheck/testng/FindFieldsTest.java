@@ -8,6 +8,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import org.testng.annotations.BeforeMethod;
@@ -15,49 +16,48 @@ import org.testng.annotations.Test;
 
 public class FindFieldsTest {
 
-	private Map<String, Class<?>> recheckFields;
+	private static Predicate<Field> stringClass = f -> String.class.isAssignableFrom( f.getType() );
+	private Map<String, Class<?>> matchingFields;
 
 	@BeforeMethod
 	public void before() {
-		recheckFields = new LinkedHashMap<>();
+		matchingFields = new LinkedHashMap<>();
 	}
 
 	@Test
-	public void findRecheckFieldsOfClass() throws Exception {
-		recheckFields.put( "somePublicField", DummyClass.class );
-		recheckFields.put( "otherPublicField", DummyClass.class );
-		recheckFields.put( "somePrivateField", DummyClass.class );
-		recheckFields.put( "someSuperClassField", SuperClass.class );
-		recheckFields.put( "someSuperSuperClassField", SuperSuperClass.class );
-		recheckFields.put( "someInterfaceField", DummyInterface.class );
-		recheckFields.put( "someSuperClassInterfaceField", SuperClassInterface.class );
-		final List<Field> on = FindFields.matching( FindFields.isRecheckLifecycle ).on( DummyClass.class )
-				.collect( Collectors.toList() );
+	public void findMatchingFieldsOfClass() throws Exception {
+		matchingFields.put( "somePublicField", DummyClass.class );
+		matchingFields.put( "otherPublicField", DummyClass.class );
+		matchingFields.put( "somePrivateField", DummyClass.class );
+		matchingFields.put( "someSuperClassField", SuperClass.class );
+		matchingFields.put( "someSuperSuperClassField", SuperSuperClass.class );
+		matchingFields.put( "someInterfaceField", DummyInterface.class );
+		matchingFields.put( "someSuperClassInterfaceField", SuperClassInterface.class );
+		final List<Field> on = FindFields.matching( stringClass ).on( DummyClass.class ).collect( Collectors.toList() );
 		assertThat( on ).containsOnlyElementsOf( fields() );
 	}
 
 	@Test
-	public void doesNotFindNonRecheckLifecycleFields() throws Exception {
-		assertThat( FindFields.matching( FindFields.isRecheckLifecycle ).on( DummyClass.class ) )
-				.doesNotContain( getField( DummyClass.class, "nonRecheckLifecyleField" ) );
+	public void doesNotFindNonMatchingFields() throws Exception {
+		assertThat( FindFields.matching( stringClass ).on( DummyClass.class ) )
+				.doesNotContain( getField( DummyClass.class, "nonMatchingField" ) );
 	}
 
 	@Test
 	public void doesNotFailOnTestWithoutFields() throws Exception {
-		FindFields.matching( FindFields.isRecheckLifecycle ).on( EmptyClass.class );
+		FindFields.matching( stringClass ).on( EmptyClass.class );
 	}
 
 	@Test
 	public void doesNotFindFieldsTwice() throws Exception {
-		recheckFields.put( "someSuperSuperClassField", SuperSuperClass.class );
-		final List<Field> fields =
-				FindFields.matching( FindFields.isRecheckLifecycle ).on( SuperSuperClass.class ).collect( toList() );
+		matchingFields.put( "someSuperSuperClassField", SuperSuperClass.class );
+		final List<Field> fields = FindFields.matching( stringClass ).on( SuperSuperClass.class ).collect( toList() );
 		assertThat( fields ).containsOnlyElementsOf( fields() );
 		assertThat( fields ).hasSize( 1 );
 	}
 
 	private List<Field> fields() throws NoSuchFieldException, SecurityException {
-		return recheckFields.entrySet().stream().map( this::toField ).collect( toList() );
+		return matchingFields.entrySet().stream().map( this::toField ).collect( toList() );
 	}
 
 	private Field toField( final Entry<String, Class<?>> entry ) {

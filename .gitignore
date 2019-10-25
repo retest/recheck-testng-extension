@@ -20,3 +20,4 @@ retest-gmbh-gpg.asc
 
 # ApprovalTests.
 **/*.received.*
+/test-output/

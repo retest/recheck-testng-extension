@@ -7,7 +7,6 @@ import java.lang.reflect.Field;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
 
-import de.retest.recheck.RecheckLifecycle;
 import lombok.RequiredArgsConstructor;
 
 /**
@@ -15,9 +14,6 @@ import lombok.RequiredArgsConstructor;
  */
 @RequiredArgsConstructor
 public class FindFields {
-
-	public static final Predicate<Field> isRecheckLifecycle =
-			f -> RecheckLifecycle.class.isAssignableFrom( f.getType() );
 
 	private final Predicate<? super Field> predicate;
 
