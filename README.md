@@ -42,7 +42,7 @@ compile 'de.retest:recheck-testng-extension:${LATEST_VERSION_FROM_ABOVE_LINK}'
 
 ## Usage
 
-Recheck TestNG extension uses [TestNG](https://testng.org)'s listener mechanism. It can be used by adding `@Listeners(RecheckHook.class)` to your test class.
+Recheck TestNG extension uses [TestNG](https://testng.org/doc/documentation-main.html#testng-listeners)'s listener mechanism. It can be used by adding `@Listeners(RecheckHook.class)` to your test class.
 
 ## License
 
