@@ -6,7 +6,7 @@
 [![PRs welcome](https://img.shields.io/badge/PRs-welcome-ff69b4.svg)](https://github.com/retest/recheck-testng-extension/issues?q=is%3Aissue+is%3Aopen+label%3A%22help+wanted%22)
 [![code with hearth by retest](https://img.shields.io/badge/%3C%2F%3E%20with%20%E2%99%A5%20by-retest-C1D82F.svg)](https://retest.de/)
 
-TestNG Extension for [recheck](https://github.com/retest/recheck). Automatic set up and tear down of tests using recheck.
+[TestNG](https://testng.org/doc/) Extension for [recheck](https://github.com/retest/recheck). Automatic set up and tear down of tests using recheck.
 
 ## Features
 
@@ -42,7 +42,7 @@ compile 'de.retest:recheck-testng-extension:${LATEST_VERSION_FROM_ABOVE_LINK}'
 
 ## Usage
 
-Recheck TestNG extension uses [TestNG](https://testng.org/doc/documentation-main.html#testng-listeners)'s listener mechanism. It can be used by adding `@Listeners(RecheckHook.class)` to your test class.
+Recheck TestNG extension uses [TestNG's listener](https://testng.org/doc/documentation-main.html#testng-listeners) mechanism. It can be used by adding `@Listeners(RecheckHook.class)` to your test class.
 
 ## License
 
