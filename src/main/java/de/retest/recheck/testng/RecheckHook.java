@@ -21,8 +21,11 @@ public class RecheckHook implements IHookable {
 	public void run( final IHookCallBack callBack, final ITestResult testResult ) {
 		startTest( testResult );
 		callBack.runTestMethod( testResult );
-		capTest( testResult );
-		cap( testResult );
+		try {
+			capTest( testResult );
+		} finally {
+			cap( testResult );
+		}
 	}
 
 	private void startTest( final ITestResult result ) {
