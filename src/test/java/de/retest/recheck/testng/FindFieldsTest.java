@@ -34,7 +34,7 @@ public class FindFieldsTest {
 		matchingFields.put( "someInterfaceField", DummyInterface.class );
 		matchingFields.put( "someSuperClassInterfaceField", SuperClassInterface.class );
 		final List<Field> on = FindFields.matching( stringClass ).on( DummyClass.class ).collect( Collectors.toList() );
-		assertThat( on ).containsOnlyElementsOf( fields() );
+		assertThat( on ).containsOnly( fields() );
 	}
 
 	@Test
@@ -52,12 +52,14 @@ public class FindFieldsTest {
 	public void doesNotFindFieldsTwice() throws Exception {
 		matchingFields.put( "someSuperSuperClassField", SuperSuperClass.class );
 		final List<Field> fields = FindFields.matching( stringClass ).on( SuperSuperClass.class ).collect( toList() );
-		assertThat( fields ).containsOnlyElementsOf( fields() );
+		assertThat( fields ).containsOnly( fields() );
 		assertThat( fields ).hasSize( 1 );
 	}
 
-	private List<Field> fields() throws NoSuchFieldException, SecurityException {
-		return matchingFields.entrySet().stream().map( this::toField ).collect( toList() );
+	private Field[] fields() throws NoSuchFieldException, SecurityException {
+		return matchingFields.entrySet().stream() //
+				.map( this::toField ) //
+				.toArray( Field[]::new );
 	}
 
 	private Field toField( final Entry<String, Class<?>> entry ) {
