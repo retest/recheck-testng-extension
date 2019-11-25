@@ -1,6 +1,6 @@
 package de.retest.recheck.testng;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatCode;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.inOrder;
 import static org.mockito.Mockito.mock;
@@ -85,12 +85,7 @@ public class RecheckHookTest {
 
 		final RecheckHook hook = new RecheckHook();
 
-		try {
-			hook.run( callBack, testResult );
-			throw new RuntimeException( "Test should throw an error!" );
-		} catch ( final AssertionError error ) {
-			assertThat( error ).isEqualTo( assertionError );
-		}
+		assertThatCode( () -> hook.run( callBack, testResult ) ).isEqualTo( assertionError );
 
 		verify( testInstance.recheck ).cap();
 	}
