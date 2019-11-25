@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>de.retest</groupId>
 	<artifactId>recheck-testng-extension</artifactId>
-	<version>1.5.0-SNAPSHOT</version>
+	<version>1.7.0-SNAPSHOT</version>
 
 	<name>recheck-testng-extension</name>
 	<description>TestNG extension reducing boilerplate code in tests.</description>
@@ -56,7 +56,7 @@
 		<project.resources.sourceEncoding>UTF-8</project.resources.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<junit.jupiter.version>5.5.1</junit.jupiter.version>
-		<recheck.version>1.5.0</recheck.version>
+		<recheck.version>1.7.0</recheck.version>
 		<service.declaration.dir>src</service.declaration.dir>
 		<service.files.path>META-INF/services</service.files.path>
 	</properties>
