@@ -26,7 +26,7 @@ public class RecheckHookTest {
 	private IHookCallBack callBack;
 	private ITestResult testResult;
 	private DummyTest testInstance;
-	private String name;
+	private String testName;
 
 	@BeforeMethod
 	private void before() {
@@ -34,8 +34,8 @@ public class RecheckHookTest {
 		testResult = mock( ITestResult.class );
 		testInstance = new DummyTest();
 		testInstance.recheck = mock( RecheckLifecycle.class );
-		name = "name";
-		when( testResult.getName() ).thenReturn( name );
+		testName = "testName";
+		when( testResult.getName() ).thenReturn( testName );
 		when( testResult.getInstance() ).thenReturn( testInstance );
 	}
 
@@ -56,7 +56,7 @@ public class RecheckHookTest {
 
 		hook.run( callBack, testResult );
 
-		inOrder.verify( testInstance.recheck ).startTest( name );
+		inOrder.verify( testInstance.recheck ).startTest( testName );
 		inOrder.verify( callBack ).runTestMethod( testResult );
 		inOrder.verify( testInstance.recheck ).capTest();
 		inOrder.verify( testInstance.recheck ).cap();
@@ -66,7 +66,7 @@ public class RecheckHookTest {
 	public void usesParametersInTestName() throws Exception {
 		final String someParameter = "parameter-1";
 		final String otherParameter = "parameter-2";
-		final String combinedName = name + "_" + someParameter + "_" + otherParameter;
+		final String combinedName = testName + "_" + someParameter + "_" + otherParameter;
 		final Object[] parameters = new String[] { someParameter, otherParameter };
 		when( testResult.getParameters() ).thenReturn( parameters );
 
