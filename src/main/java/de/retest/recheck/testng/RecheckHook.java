@@ -3,6 +3,7 @@ package de.retest.recheck.testng;
 import static de.retest.recheck.testng.Execute.execute;
 
 import java.util.Arrays;
+import java.util.Objects;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
@@ -42,10 +43,12 @@ public class RecheckHook implements IHookable {
 
 	private String concatParameters( final ITestResult result ) {
 		final Object[] parameters = result.getParameters();
-		if ( null == parameters ) {
+		if ( parameters == null || parameters.length == 0 ) {
 			return "";
 		}
-		return Arrays.stream( parameters ).map( String::valueOf ).collect( Collectors.joining( "_", "_", "" ) );
+		return Arrays.stream( parameters ) //
+				.map( Objects::toString ) //
+				.collect( Collectors.joining( "_", "_", "" ) );
 	}
 
 	private void capTest( final ITestResult result ) {
