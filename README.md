@@ -20,7 +20,7 @@ The extension automatically calls `startTest`, `capTest` and `cap`. So it is no 
 
 ## Build tools
 
-You can add ***recheck-testng-extension*** as an external dependency to your project. It is available in [Maven central](https://mvnrepository.com/artifact/de.retest/recheck-testng-extension) or via the [release-page](https://github.com/retest/recheck-testng-extension/releases), which allows you to include it into your favorite build tool.
+You can add ***recheck-testng-extension*** as an external dependency to your project. It is available via the [release-page](https://github.com/retest/recheck-testng-extension/releases) which allows you to include it into your favorite build tool or via [Maven central](https://mvnrepository.com/artifact/de.retest/recheck-testng-extension): [![Latest recheck-testng-extension on Maven Central](https://maven-badges.herokuapp.com/maven-central/de.retest/recheck-testng-extension/badge.svg?style=flat)](https://mvnrepository.com/artifact/de.retest/recheck-testng-extension)
 
 For the current version, please refer to the release-page.
 
