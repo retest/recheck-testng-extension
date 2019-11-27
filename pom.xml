@@ -64,8 +64,8 @@
 		<url>https://github.com/retest/recheck-testng-extension</url>
 		<connection>scm:git:git@github.com:retest/recheck-testng-extension.git</connection>
 		<developerConnection>scm:git:git@github.com:retest/recheck-testng-extension.git</developerConnection>
-	  <tag>HEAD</tag>
-  </scm>
+		<tag>HEAD</tag>
+	</scm>
 
 	<distributionManagement>
 		<snapshotRepository>
