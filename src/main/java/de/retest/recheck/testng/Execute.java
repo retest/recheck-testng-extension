@@ -14,9 +14,6 @@ import de.retest.recheck.util.ReflectionUtilities;
  */
 public class Execute {
 
-	private static final Predicate<Field> recheckLifecycle =
-			field -> RecheckLifecycle.class.isAssignableFrom( field.getType() );
-
 	private final Consumer<RecheckLifecycle> consumer;
 
 	private Execute( final Consumer<RecheckLifecycle> consumer ) {
@@ -40,8 +37,7 @@ public class Execute {
 	 *            object to retrieve fields from and call {@link #consumer} on
 	 */
 	public void on( final Object object ) {
-		final Stream<Field> field = findRecheckFields( object );
-		field.forEach( f -> execute( f, object ) );
+		findRecheckLifecycleFields( object ).forEach( field -> execute( field, object ) );
 	}
 
 	private void execute( final Field field, final Object testInstance ) {
@@ -58,8 +54,12 @@ public class Execute {
 		}
 	}
 
-	private Stream<Field> findRecheckFields( final Object testInstance ) {
-		return ReflectionUtilities.getAllFields( testInstance.getClass() ).stream().filter( recheckLifecycle );
+	private Stream<Field> findRecheckLifecycleFields( final Object testInstance ) {
+		return ReflectionUtilities.getAllFields( testInstance.getClass() ).stream().filter( this::isRecheckLifecycle );
+	}
+
+	private boolean isRecheckLifecycle( final Field field ) {
+		return RecheckLifecycle.class.isAssignableFrom( field.getType() );
 	}
 
 	private void unlock( final Field field ) {
