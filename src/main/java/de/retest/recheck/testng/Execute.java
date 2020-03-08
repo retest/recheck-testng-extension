@@ -6,6 +6,7 @@ import java.util.function.Predicate;
 import java.util.stream.Stream;
 
 import de.retest.recheck.RecheckLifecycle;
+import de.retest.recheck.util.ReflectionUtilities;
 
 /**
  * Search fields matching {@link #recheckLifecycle} {@link Predicate} and call the consumer for the field values of the
@@ -58,7 +59,7 @@ public class Execute {
 	}
 
 	private Stream<Field> findRecheckFields( final Object testInstance ) {
-		return FindFields.matching( recheckLifecycle ).on( testInstance.getClass() );
+		return ReflectionUtilities.getAllFields( testInstance.getClass() ).stream().filter( recheckLifecycle );
 	}
 
 	private void unlock( final Field field ) {
