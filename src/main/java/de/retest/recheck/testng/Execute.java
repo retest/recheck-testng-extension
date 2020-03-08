@@ -49,8 +49,8 @@ public class Execute {
 	private void doExecute( final Field field, final Object testInstance ) {
 		try {
 			consumer.accept( (RecheckLifecycle) field.get( testInstance ) );
-		} catch ( IllegalArgumentException | IllegalAccessException cause ) {
-			throw new RuntimeException( cause );
+		} catch ( IllegalArgumentException | IllegalAccessException e ) {
+			throw new IllegalStateException( e );
 		}
 	}
 
