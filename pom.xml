@@ -3,7 +3,7 @@
 
 	<groupId>de.retest</groupId>
 	<artifactId>recheck-testng-extension</artifactId>
-	<version>1.10.0</version>
+	<version>1.10.1-SNAPSHOT</version>
 
 	<name>recheck-testng-extension</name>
 	<description>TestNG extension reducing boilerplate code in tests.</description>
