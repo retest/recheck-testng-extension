@@ -2,15 +2,13 @@ package de.retest.recheck.testng;
 
 import java.lang.reflect.Field;
 import java.util.function.Consumer;
-import java.util.function.Predicate;
 import java.util.stream.Stream;
 
 import de.retest.recheck.RecheckLifecycle;
 import de.retest.recheck.util.ReflectionUtilities;
 
 /**
- * Search fields matching {@link #recheckLifecycle} {@link Predicate} and call the consumer for the field values of the
- * given object.
+ * Searches {@link RecheckLifecycle} fields and executes the consumer for the field values of the given object.
  */
 public class Execute {
 
@@ -24,17 +22,18 @@ public class Execute {
 	 * Create an executor to call the consumer with all instances of the later given object.
 	 *
 	 * @param consumer
-	 *            {@link Consumer} to be executed for all fields matching {@link #recheckLifecycle} {@link Predicate}
+	 *            {@link Consumer} to be executed for all {@link RecheckLifecycle} fields.
+	 * @return {@code Execute} instance with the given consumer.
 	 */
 	public static Execute execute( final Consumer<RecheckLifecycle> consumer ) {
 		return new Execute( consumer );
 	}
 
 	/**
-	 * Call {@link #consumer} on all field values matching {@link #recheckLifecycle} {@link Predicate}.
+	 * Execute {@link #consumer} on all {@link RecheckLifecycle} fields.
 	 *
 	 * @param object
-	 *            object to retrieve fields from and call {@link #consumer} on
+	 *            object to retrieve fields from and call {@link #consumer} on.
 	 */
 	public void on( final Object object ) {
 		findRecheckLifecycleFields( object ).forEach( field -> execute( field, object ) );
