@@ -14,9 +14,9 @@ public class ExecuteTest {
 	private static class DummyClass {
 
 		@SuppressWarnings( "unused" )
-		public final Object someObject = new Object();
-		protected final RecheckLifecycle someLifecycle = mock( RecheckLifecycle.class );
-		private final RecheckLifecycle otherLifecycle = mock( RecheckLifecycle.class );
+		public final Object publicObject = new Object();
+		protected final RecheckLifecycle protectedLifecycle = mock( RecheckLifecycle.class );
+		private final RecheckLifecycle privateLifecycle = mock( RecheckLifecycle.class );
 
 	}
 
@@ -28,8 +28,8 @@ public class ExecuteTest {
 
 		Execute.execute( consumer ).on( object );
 
-		verify( consumer ).accept( object.someLifecycle );
-		verify( consumer ).accept( object.otherLifecycle );
+		verify( consumer ).accept( object.protectedLifecycle );
+		verify( consumer ).accept( object.privateLifecycle );
 	}
 
 }
