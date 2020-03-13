@@ -13,8 +13,10 @@ public class ExecuteTest {
 
 	private static class DummyClass {
 
-		private RecheckLifecycle someField;
-		private RecheckLifecycle otherField;
+		@SuppressWarnings( "unused" )
+		public final Object publicObject = new Object();
+		protected final RecheckLifecycle protectedLifecycle = mock( RecheckLifecycle.class );
+		private final RecheckLifecycle privateLifecycle = mock( RecheckLifecycle.class );
 
 	}
 
@@ -22,18 +24,12 @@ public class ExecuteTest {
 	public void callConsumerForAllFields() throws Exception {
 		@SuppressWarnings( "unchecked" )
 		final Consumer<RecheckLifecycle> consumer = mock( Consumer.class );
-		final DummyClass object = createDummyObject();
+		final DummyClass object = new DummyClass();
 
 		Execute.execute( consumer ).on( object );
 
-		verify( consumer ).accept( object.someField );
-		verify( consumer ).accept( object.otherField );
+		verify( consumer ).accept( object.protectedLifecycle );
+		verify( consumer ).accept( object.privateLifecycle );
 	}
 
-	private DummyClass createDummyObject() {
-		final DummyClass object = new DummyClass();
-		object.someField = mock( RecheckLifecycle.class );
-		object.otherField = mock( RecheckLifecycle.class );
-		return object;
-	}
 }

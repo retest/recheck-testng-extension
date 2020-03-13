@@ -2,19 +2,15 @@ package de.retest.recheck.testng;
 
 import java.lang.reflect.Field;
 import java.util.function.Consumer;
-import java.util.function.Predicate;
 import java.util.stream.Stream;
 
 import de.retest.recheck.RecheckLifecycle;
+import de.retest.recheck.util.ReflectionUtilities;
 
 /**
- * Search fields matching {@link #recheckLifecycle} {@link Predicate} and call the consumer for the field values of the
- * given object.
+ * Searches {@link RecheckLifecycle} fields and executes the consumer for the field values of the given object.
  */
 public class Execute {
-
-	private static final Predicate<Field> recheckLifecycle =
-			field -> RecheckLifecycle.class.isAssignableFrom( field.getType() );
 
 	private final Consumer<RecheckLifecycle> consumer;
 
@@ -26,21 +22,21 @@ public class Execute {
 	 * Create an executor to call the consumer with all instances of the later given object.
 	 *
 	 * @param consumer
-	 *            {@link Consumer} to be executed for all fields matching {@link #recheckLifecycle} {@link Predicate}
+	 *            {@link Consumer} to be executed for all {@link RecheckLifecycle} fields.
+	 * @return {@code Execute} instance with the given consumer.
 	 */
 	public static Execute execute( final Consumer<RecheckLifecycle> consumer ) {
 		return new Execute( consumer );
 	}
 
 	/**
-	 * Call {@link #consumer} on all field values matching {@link #recheckLifecycle} {@link Predicate}.
+	 * Execute {@link #consumer} on all {@link RecheckLifecycle} fields.
 	 *
 	 * @param object
-	 *            object to retrieve fields from and call {@link #consumer} on
+	 *            object to retrieve fields from and call {@link #consumer} on.
 	 */
 	public void on( final Object object ) {
-		final Stream<Field> field = findRecheckFields( object );
-		field.forEach( f -> execute( f, object ) );
+		findRecheckLifecycleFields( object ).forEach( field -> execute( field, object ) );
 	}
 
 	private void execute( final Field field, final Object testInstance ) {
@@ -52,13 +48,17 @@ public class Execute {
 	private void doExecute( final Field field, final Object testInstance ) {
 		try {
 			consumer.accept( (RecheckLifecycle) field.get( testInstance ) );
-		} catch ( IllegalArgumentException | IllegalAccessException cause ) {
-			throw new RuntimeException( cause );
+		} catch ( IllegalArgumentException | IllegalAccessException e ) {
+			throw new IllegalStateException( e );
 		}
 	}
 
-	private Stream<Field> findRecheckFields( final Object testInstance ) {
-		return FindFields.matching( recheckLifecycle ).on( testInstance.getClass() );
+	private Stream<Field> findRecheckLifecycleFields( final Object testInstance ) {
+		return ReflectionUtilities.getAllFields( testInstance.getClass() ).stream().filter( this::isRecheckLifecycle );
+	}
+
+	private boolean isRecheckLifecycle( final Field field ) {
+		return RecheckLifecycle.class.isAssignableFrom( field.getType() );
 	}
 
 	private void unlock( final Field field ) {
