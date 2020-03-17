@@ -32,7 +32,7 @@ public class RecheckHook implements IHookable {
 	private void startTest( final ITestResult result ) {
 		final String testName = resolveName( result );
 		final Object testInstance = result.getInstance();
-		final Consumer<RecheckLifecycle> startTest = r -> r.startTest( testName );
+		final Consumer<RecheckLifecycle> startTest = lifecycle -> lifecycle.startTest( testName );
 		execute( startTest ).on( testInstance );
 	}
 
