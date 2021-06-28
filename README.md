@@ -1,9 +1,9 @@
 # <a href="https://retest.dev"><img src="https://assets.retest.org/retest/ci/logos/recheck-screen.svg" width="300"/></a>
 
-[![Build Status](https://travis-ci.com/retest/recheck-testng-extension.svg?branch=master)](https://travis-ci.com/retest/recheck-testng-extension)
+[![Build Status](https://github.com/retest/recheck-testng-extension/actions/workflows/build-project.yml/badge.svg)](https://github.com/retest/recheck-testng-extension/actions/workflows/build-project.yml)
 [![Latest recheck-testng-extension on Maven Central](https://maven-badges.herokuapp.com/maven-central/de.retest/recheck-testng-extension/badge.svg?style=flat)](https://mvnrepository.com/artifact/de.retest/recheck-testng-extension)
 [![Latest recheck-testng-extension releases on JitPack](https://jitpack.io/v/de.retest/recheck-testng-extension.svg)](https://jitpack.io/#de.retest/recheck-testng-extension)
-[![license](https://img.shields.io/badge/license-AGPL-brightgreen.svg)](https://github.com/retest/recheck-testng-extension/blob/master/LICENSE)
+[![license](https://img.shields.io/badge/license-AGPL-brightgreen.svg)](https://github.com/retest/recheck-testng-extension/blob/main/LICENSE)
 [![PRs welcome](https://img.shields.io/badge/PRs-welcome-ff69b4.svg)](https://github.com/retest/recheck-testng-extension/issues?q=is%3Aissue+is%3Aopen+label%3A%22help+wanted%22)
 [![code with hearth by retest](https://img.shields.io/badge/%3C%2F%3E%20with%20%E2%99%A5%20by-retest-C1D82F.svg)](https://retest.de/)
 
